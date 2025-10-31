@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  git-lfs-server:
+    build: .
+    ports:
+      - "9999:8080"
+    environment:
+      - LFS_ADMINUSER=${LFS_ADMINUSER}
+      - LFS_ADMINPASS=${LFS_ADMINPASS}
+      - LFS_SCHEME=${LFS_SCHEME}
+    volumes:
+      - /docker/lfs_data:/data/lfs-server
