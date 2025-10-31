@@ -1,10 +1,14 @@
 FROM golang:1.23.9 AS build
+
 MAINTAINER GitHub, Inc.
+
+RUN apt-get update && apt-get install -y git
 
 WORKDIR /go/src/github.com/git-lfs/lfs-test-server
 
-COPY . .
+RUN git clone https://github.com/git-lfs/lfs-test-server.git .
 
+RUN go mod tidy
 RUN go build
 
 FROM debian:bookworm-slim
@@ -14,4 +18,3 @@ WORKDIR /data/lfs-server
 EXPOSE 8080
 
 CMD /usr/bin/lfs-test-server
-
